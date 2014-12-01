@@ -102,4 +102,57 @@ public class Cliente {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+    
+    //generar string de cliente, generar cliente de un string
+    public String generaStringCliente(){
+        String genString = this.nombre + "$" + this.apellido + "$" 
+                + this.direccion + "$" + this.usuario + "$" + this.password +
+                "$" + this.mail + "$" + String.valueOf(this.clienteId) + "$" +
+                String.valueOf(this.telefono) + "$$";
+        return genString;
+    }
+        
+    //generar cliente de un string
+   public void generaClienteDeString(String in){
+        String subString = "";
+        int count = 0;
+        boolean done = false;
+        
+        for(int i = 0; i<in.length();i++){
+            if(in.charAt(i) =='$'){
+                count++;
+                done = true;
+                i++;
+            }
+            if(done){
+                if(count == 1){
+                    this.nombre = subString;
+                }
+                else if (count == 2){
+                    this.apellido = subString;
+                }
+                else if (count == 3) {
+                    this.direccion = subString;
+                }
+                else if (count == 4){
+                    this.usuario = subString;
+                }
+                else if (count == 5){
+                    this.password = subString;
+                }
+                else if (count == 6){
+                    this.mail = subString;
+                }
+                else if (count == 7){
+                    this.clienteId = Integer.parseInt(subString);
+                }
+                else if (count == 8){
+                    this.telefono = Integer.parseInt(subString);
+                }
+                subString = "";
+                done = false;
+            }
+            subString += in.charAt(i);
+        }
+    }
 }

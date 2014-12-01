@@ -95,4 +95,69 @@ public class Pedido {
         s=s.concat("P");
         return s;
     }
+
+    public int getPedidoId() {
+        return pedidoId;
+    }
+
+    public void setPedidoId(int pedidoId) {
+        this.pedidoId = pedidoId;
+    }
+
+    public int getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getAnchoJardin() {
+        return anchoJardin;
+    }
+
+    public void setAnchoJardin(int anchoJardin) {
+        this.anchoJardin = anchoJardin;
+    }
+
+    public int getLargoJardin() {
+        return largoJardin;
+    }
+
+    public void setLargoJardin(int largoJardin) {
+        this.largoJardin = largoJardin;
+    }
+
+    public int getDia() {
+        return Dia;
+    }
+
+    public void setDia(int Dia) {
+        this.Dia = Dia;
+    }
+
+    public int getMes() {
+        return Mes;
+    }
+
+    public void setMes(int Mes) {
+        this.Mes = Mes;
+    }
+
+    public int getAno() {
+        return Ano;
+    }
+
+    public void setAno(int Ano) {
+        this.Ano = Ano;
+    }
+    
 }

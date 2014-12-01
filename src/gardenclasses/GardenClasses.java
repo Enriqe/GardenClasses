@@ -11,13 +11,15 @@ package gardenclasses;
  * @author Enrique
  */
 public class GardenClasses {
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Pedido p;
+
+       
+       /* Pedido p;
         p = new Pedido(1,0,40,50,17,06,1994);
         p.agregarProducto(new Producto(1,"planta",1.0,1,1,1));
         String s;
@@ -27,6 +29,7 @@ public class GardenClasses {
         p=new Pedido(s);
         System.out.println(p.infoPedido());
         System.out.println(p.getProductosPendientes());
+               */
     }
     
 }

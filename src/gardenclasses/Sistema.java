@@ -12,5 +12,7 @@ import java.util.LinkedList;
  * @author frankcanseco
  */
 public class Sistema {
+       
     LinkedList<Producto> productosDisponibles;
+    
 }
