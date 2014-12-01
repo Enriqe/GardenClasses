@@ -10,5 +10,6 @@ package gardenclasses;
  * @author frankcanseco
  */
 public class Jardin {
+    Producto productos[];
     
 }

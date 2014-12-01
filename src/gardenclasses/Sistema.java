@@ -13,9 +13,8 @@ import java.util.LinkedList;
  */
 public class Sistema {
        
-        public LinkedList<Producto> productos = new LinkedList();
-        public LinkedList<Cliente> clientes = new LinkedList();
-        public LinkedList<Pedido> pedidos = new LinkedList();
+    LinkedList<Producto> productosDisponibles;
+
         
 	public Sistema(){
            
