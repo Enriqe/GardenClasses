@@ -6,7 +6,9 @@
 
 package gardenclasses;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -54,6 +56,11 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea2);
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("jButton2");
 
@@ -114,6 +121,11 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     
     /**
@@ -142,12 +154,27 @@ public class MainWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //jTextArea1.add(Cliente cliente, args);
-        JFrame frame = new JFrame("List Model Example");
+        //1. Create the frame.
+        JFrame frame = new JFrame("FrameDemo");
+
+        //2. Optional: What happens when the frame closes?
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new MainWindow());
-        frame.setSize(260, 200);
+
+        //3. Create components and put them in the frame.
+        //...create emptyLabel...
+        //frame.getContentPane().add(lista1, BorderLayout.CENTER);
+        
+        JPanel contentPane = new JPanel(new BorderLayout());
+        //contentPane.setBorder(Border f);
+        //contentPane.add(jList1, BorderLayout.CENTER);
+        //contentPane.add(anotherComponent, BorderLayout.PAGE_END);
+
+        //4. Size the frame.
+        frame.pack();
+
+        //5. Show it.
         frame.setVisible(true);
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
