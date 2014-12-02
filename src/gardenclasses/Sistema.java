@@ -104,8 +104,18 @@ public class Sistema {
         }
     }
     
-    public void aumentarInventario(){
-        
+    public void aumentarInventario(int id, int cant){
+        boolean aux = false;
+        for (int x = 0; x < productosDisponibles.size(); x++) {
+            if (id == productosDisponibles.get(x).getId()) {
+                productosDisponibles.get(x).addCantidadDisponible(cant);
+                aux = true;
+                break;
+            }
+        }
+        if (!aux) {
+            JOptionPane.showMessageDialog(null, "El producto es incorrecto. No existe el id.");
+        }
     }
 
     public void crearPedido(int ancho , int largo, int d , int m , int a) {
