@@ -103,6 +103,10 @@ public class Sistema {
             }
         }
     }
+    
+    public void aumentarInventario(){
+        
+    }
 
     public void crearPedido(int ancho , int largo, int d , int m , int a) {
         //tinee que validar que no haya pedidos creados
@@ -149,7 +153,8 @@ public class Sistema {
         estado = 1;
     }
 
-    public void agregarUsuario() {
+    public void agregarUsuario(String nom, String apel, String direc, String usuar,
+                            String pass, String correo, int tel) {
 
     }
 
