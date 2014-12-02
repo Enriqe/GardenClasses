@@ -84,7 +84,14 @@ public class Sistema {
         
     }
     public void borrarPedido(){
-        
+        for (int x = 0; x < pedidos.size(); x++) {
+            Pedido aux = (Pedido) pedidos.get(x);
+            if (cActual.getClienteId() == aux.getClienteId()) {
+                pedidos.remove(x);
+                break;
+            }
+        }
+        estado = 1;
     }
     public void agregarUsuario(){
         
