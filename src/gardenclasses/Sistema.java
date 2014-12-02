@@ -59,6 +59,24 @@ public class Sistema {
     "El usuario no tiene jardines ni pedidos creados");
         return false;
     }
+    public void agregarProducto(){
+        
+    }
+    public void agregarAPedido(){
+        
+    }
+    public void crearPedido(){
+        //tinee que validar que no haya pedidos creados
+    }
+    public void mostrarPedido(){
+        
+    }
+    public void mostrarProductos(){
+        
+    }
+    public void salir(){
+        
+    }
     
     public int getEstado(){
         return this.estado;
