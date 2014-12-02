@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +19,8 @@ import java.util.LinkedList;
  */
 public class Sistema {
     Cliente cActual;
+    Pedido pActual;
+    int estado;
     LinkedList<Cliente> clientes;
     LinkedList<Producto> productosDisponibles;
     LinkedList<Pedido> pedidos;
@@ -25,7 +28,30 @@ public class Sistema {
         clientes = new LinkedList();
         productosDisponibles = new LinkedList();
         pedidos = new LinkedList();
+        estado = 0;
     }
+    public Boolean login(String Usuario,String Password){
+        for (Cliente c:clientes){
+            if(c.getUsuario().equals(Usuario)){
+                if (c.getPassword().equals(Password)){
+                    estado = 1;
+                    cActual=c;
+                    return true;
+                }
+                JOptionPane.showMessageDialog(null,
+    "Wrong Password");
+                return false;
+            }
+        }
+        JOptionPane.showMessageDialog(null,
+    "User does not exist");
+        return false;
+    }
+    
+    public int getEstado(){
+        return this.estado;
+    }
+    
     public void Cargar(){
         String texto,aux;
         try
