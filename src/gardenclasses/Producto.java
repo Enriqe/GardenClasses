@@ -49,7 +49,9 @@ public class Producto {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    public void setCant(int c) {
+        this.cantidadDisponible = c;
+    }
     public double getPrecio() {
         return precio;
     }

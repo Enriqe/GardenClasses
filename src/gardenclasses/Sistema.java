@@ -59,11 +59,45 @@ public class Sistema {
     "El usuario no tiene jardines ni pedidos creados");
         return false;
     }
-    public void agregarProducto(){
-        
+    public void agregarProducto(String n , double p, int x , int y , int c){
+        if (cActual.getClienteId()==1){
+            int tam = productosDisponibles.size();
+            tam +=1;
+            productosDisponibles.push(new Producto(tam,n,p,x,y,c));
+        }
+        else{
+            JOptionPane.showMessageDialog(null,
+            "No eres administrador");
+        }
     }
-    public void agregarAPedido(){
-        
+    public void agregarAPedido(int id , int cant){
+        if(id>productosDisponibles.size()){
+            JOptionPane.showMessageDialog(null,
+    "No existe ese producto");
+            return;
+        }
+        if (cant>productosDisponibles.get(id-1).getCantidadDisponible()){
+            JOptionPane.showMessageDialog(null,
+    "No hay cantidad suficiente disponible para su pedido");
+        }
+        else{
+            Boolean noEncontro = false;
+            for (Producto p: pActual.productos){
+                if (p.getId()==id){
+                    p.addCantidadDisponible(cant);
+                }
+            }
+            if(noEncontro){
+                Producto p = productosDisponibles.get(id-1);
+                p.setCant(cant);
+                pActual.productos.push(p);
+            }
+            for (Producto q : productosDisponibles){
+                if (q.getId()==id){
+                    q.addCantidadDisponible(-cant);
+                }
+            }
+        }
     }
     public void crearPedido(){
         //tinee que validar que no haya pedidos creados
@@ -78,7 +112,7 @@ public class Sistema {
         estado = -1;
     }
     public void logout(){
-        
+        estado = 0;
     }
     public void borrarPedido(){
         
@@ -89,7 +123,6 @@ public class Sistema {
     public int getEstado(){
         return this.estado;
     }
-    
     public void Cargar(){
         String texto,aux;
         try
