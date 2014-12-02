@@ -5,8 +5,10 @@
  */
 package gardenclasses;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.LinkedList;
 
@@ -23,10 +25,92 @@ public class Sistema {
         clientes = new LinkedList();
         productosDisponibles = new LinkedList();
         pedidos = new LinkedList();
-        this.Cargar();
     }
     void Cargar(){
-        
+        String texto,aux;
+        try
+            {
+            //Creamos un archivo FileReader que obtiene lo que tenga el archivo
+            FileReader lector=new FileReader("Clientes.txt");
+
+            //El contenido de lector se guarda en un BufferedReader
+            BufferedReader contenido=new BufferedReader(lector);
+
+            //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
+            while((texto=contenido.readLine())!=null)
+            {
+                aux = "";
+                while((texto=contenido.readLine())!=null && !texto.equals("&")){
+                    aux = aux.concat(texto);
+                }
+                clientes.push(new Cliente(aux));
+            }
+            }
+
+            //Si se causa un error al leer cae aqui
+            catch(Exception e)
+            {
+            System.out.println("Error al leer");
+            }
+        try
+            {
+            //Creamos un archivo FileReader que obtiene lo que tenga el archivo
+            FileReader lector=new FileReader("Productos.txt");
+
+            //El contenido de lector se guarda en un BufferedReader
+            BufferedReader contenido=new BufferedReader(lector);
+
+            //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
+            while((texto=contenido.readLine())!=null)
+            {
+                aux = "";
+                while((texto=contenido.readLine())!=null && !texto.equals("&")){
+                    aux = aux.concat(texto);
+                }
+                productosDisponibles.push(new Producto(aux));
+            }
+            }
+
+            //Si se causa un error al leer cae aqui
+            catch(Exception e)
+            {
+            System.out.println("Error al leer");
+            }
+        Pedido p;
+        String sp;
+        int prod;
+        try
+            {
+            //Creamos un archivo FileReader que obtiene lo que tenga el archivo
+            FileReader lector=new FileReader("Pedidos.txt");
+
+            //El contenido de lector se guarda en un BufferedReader
+            BufferedReader contenido=new BufferedReader(lector);
+
+            //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
+            while((texto=contenido.readLine())!=null)
+            {
+                aux = "";
+                while((texto=contenido.readLine())!=null && !texto.equals("&")){
+                    aux = aux.concat(texto);
+                }
+                p = new Pedido(aux);
+                sp = p.getProductosPendientes();
+                while(sp.length()>1){
+                    sp=sp.substring(1);
+                    prod = Integer.parseInt(sp.substring(0, sp.indexOf("P")));
+                    sp=(sp.substring(sp.indexOf("P")));
+                    p.agregarProducto(productosDisponibles.get(prod-1));
+                }
+                pedidos.push(p);
+            }
+            }
+
+            //Si se causa un error al leer cae aqui
+            catch(Exception e)
+            {
+            System.out.println("Error al leer");
+            }
     }
     void Guardar(){
         String texto="";
