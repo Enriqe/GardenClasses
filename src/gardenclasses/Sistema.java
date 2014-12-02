@@ -75,9 +75,17 @@ public class Sistema {
         
     }
     public void salir(){
+        estado = -1;
+    }
+    public void logout(){
         
     }
-    
+    public void borrarPedido(){
+        
+    }
+    public void agregarUsuario(){
+        
+    }
     public int getEstado(){
         return this.estado;
     }
