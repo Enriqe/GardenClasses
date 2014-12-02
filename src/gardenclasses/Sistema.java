@@ -163,6 +163,10 @@ public class Sistema {
     public void logout(){
         estado = 0;
     }
+    
+    public void cerrarPedido(){
+        estado = 1;
+    }
 
     public void borrarPedido() {
         for (int x = 0; x < pedidos.size(); x++) {
