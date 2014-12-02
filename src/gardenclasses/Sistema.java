@@ -26,7 +26,7 @@ public class Sistema {
         productosDisponibles = new LinkedList();
         pedidos = new LinkedList();
     }
-    void Cargar(){
+    public void Cargar(){
         String texto,aux;
         try
             {
@@ -112,7 +112,7 @@ public class Sistema {
             System.out.println("Error al leer");
             }
     }
-    void Guardar(){
+    public void Guardar(){
         String texto="";
         for(Cliente c: clientes){
             texto = texto.concat("&\n");
