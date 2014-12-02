@@ -63,11 +63,11 @@ public class Sistema {
                 "El usuario no tiene jardines ni pedidos creados");
         return false;
     }
-    public void agregarProducto(String n , double p, int x , int y , int c){
+    public void agregarProducto(String n , double p, int c){
         if (cActual.getClienteId()==1){
             int tam = productosDisponibles.size();
             tam +=1;
-            productosDisponibles.push(new Producto(tam,n,p,x,y,c));
+            productosDisponibles.push(new Producto(tam,n,p,0,0,c));
         }
         else{
             JOptionPane.showMessageDialog(null,
@@ -85,10 +85,11 @@ public class Sistema {
     "No hay cantidad suficiente disponible para su pedido");
         }
         else{
-            Boolean noEncontro = false;
+            Boolean noEncontro = true;
             for (Producto p: pActual.productos){
                 if (p.getId()==id){
                     p.addCantidadDisponible(cant);
+                    noEncontro = false;
                 }
             }
             if(noEncontro){
@@ -104,7 +105,7 @@ public class Sistema {
         }
     }
     
-    public void aumentarInventario(){
+    public void aumentarInventario(int id, int cant){
         
     }
 
@@ -125,13 +126,23 @@ public class Sistema {
     }
 
     public void mostrarPedido() {
-
+            System.out.println("ID Pedido: "+pActual.getPedidoId());
+            System.out.println("Ancho: "+pActual.getAnchoJardin()+" Largo: "+pActual.getLargoJardin());
+            System.out.println("Lista de Productos:");
+            for (Producto p: pActual.productos){
+            Producto aux = p;
+            System.out.println(aux.getId() + " " + aux.getNombre() + " $" + aux.getPrecio() + " " + aux.getCantidadDisponible());
+            }
+            double iva = pActual.calcularTotal()*.16;
+            System.out.println("SubTotal: "+pActual.calcularTotal());
+            System.out.println("IVA: "+iva);
+            System.out.println("Total: "+pActual.calcularTotal()+iva);
     }
-
+    
     public void mostrarProductos() {
         for (int x = 0; x < productosDisponibles.size(); x++) {
             Producto aux = (Producto) productosDisponibles.get(x);
-            System.out.println(aux.getId() + " " + aux.getNombre() + " " + aux.getPrecio() + " " + aux.getCantidadDisponible());
+            System.out.println(aux.getId() + " " + aux.getNombre() + " $" + aux.getPrecio() + " " + aux.getCantidadDisponible());
         }
     }
 
@@ -155,7 +166,7 @@ public class Sistema {
 
     public void agregarUsuario(String nom, String apel, String direc, String usuar,
                             String pass, String correo, int tel) {
-
+                
     }
 
     public int getEstado() {
