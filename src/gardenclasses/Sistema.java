@@ -72,7 +72,10 @@ public class Sistema {
         
     }
     public void mostrarProductos(){
-        
+        for (int x = 0; x < productosDisponibles.size(); x++) {
+            Producto aux = (Producto) productosDisponibles.get(x);
+            System.out.println(aux.getId() + " " + aux.getNombre() + " " + aux.getPrecio() + " " + aux.getCantidadDisponible()); 
+        }
     }
     public void salir(){
         estado = -1;
