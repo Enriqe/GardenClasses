@@ -155,7 +155,18 @@ public class Sistema {
 
     public void agregarUsuario(String nom, String apel, String direc, String usuar,
                             String pass, String correo, int tel) {
-
+        boolean clienteExistente = false;
+        for (int x = 0; x < clientes.size(); x++) {
+            if (clientes.get(x).getUsuario() == usuar) {
+                clienteExistente = true;
+                JOptionPane.showMessageDialog(null, "Ya tienes un usuario.");
+                break;
+            }
+            if (!clienteExistente) {
+                clientes.push(new Cliente( nom, apel, direc, usuar,
+                            pass, correo, clientes.size() + 1, tel));
+            }
+        }
     }
 
     public int getEstado() {
