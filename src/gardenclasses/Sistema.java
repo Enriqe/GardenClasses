@@ -105,7 +105,7 @@ public class Sistema {
         }
     }
     
-    public void aumentarInventario(int id, int cant){
+    public void modificarInventario(int id, int cant){
 
         boolean aux = false;
         for (int x = 0; x < productosDisponibles.size(); x++) {
@@ -150,7 +150,7 @@ public class Sistema {
             System.out.println("Total: "+pActual.calcularTotal()+iva);
     }
     
-    public void mostrarProductos() {
+    public void checarProductos() {
         for (int x = 0; x < productosDisponibles.size(); x++) {
             Producto aux = (Producto) productosDisponibles.get(x);
             System.out.println(aux.getId() + " " + aux.getNombre() + " $" + aux.getPrecio() + " " + aux.getCantidadDisponible());

@@ -22,7 +22,7 @@ public class GardenClasses {
         Sistema s = new Sistema();
         s.Cargar();
         System.out.println("Bienvenido a Garden!");
-        System.out.println("Teclea 1 si eres usuario nuevo, y 2 si ya estas registrado");
+        System.out.println("Teclea 1 si eres usuario nuevo, y 2 si ya estas registrado, 0 para salir.");
         String menuIn = in.next();
 
         if(menuIn == "1"){
@@ -46,7 +46,8 @@ public class GardenClasses {
             System.out.print("Mail: ");
             String mail = in.next();
             System.out.print("Telefono: ");
-            String telefono = in.next();
+            String tel = in.next();
+            int telefono = Integer.parseInt(tel);
 
             s.agregarUsuario(nombre, apellido, direccion, usuario, password, mail, telefono);
             System.out.println("¡Gracias " + nombre +"! Hemos terminado de registrarte");
@@ -70,8 +71,93 @@ public class GardenClasses {
                 }while(!login);
             }
         }
-        
+        //mostrar productos
+        //crear pedido
+        //
+
+        /*0 salir, login, registro
+        1 (si es admin: agregar producto, aumentarInventario,) mostrar productos, abrirPedido, borrarPedido
+        2. mostrar pedido, 2agregar a pedido, 1mostrar productos, borrar pedido*/
+        while(s.getEstado()>=0){
+            System.out.println("¡Login exitoso! Bienvenido al portal de Garden, teclea el numero "
+                    + "correspondiente a la accion que deseas hacer.");
+            System.out.println("1 - Mostrar productos\n"
+                    + "2 - Abrir un pedido\n"
+                    + "3 - Borrar un pedido\n"
+                    + "0 - Salir\n"
+                    + "9 - Opciones admin");
+            menuIn = in.next();
+            if(menuIn=="9"){
+                System.out.println("1 - Agregar producto\n"
+                        + "2 - Modificar cantidades en inventario\n"
+                        + "0 - Salir");
+                menuIn = in.next();
+                if(menuIn=="1"){
+                    //nombre, precio, cantidad
+                    System.out.println("Ingresar nombre de nuevo producto");
+                    String nom = in.next();
+                    System.out.println("Ingresar precio de nuevo producto");
+                    String pr = in.next();
+                    int precio = Integer.parseInt(pr);
+                    System.out.println("Ingresar cantidad de nuevo producto");
+                    String cant = in.next();
+                    int cantidad = Integer.parseInt(cant);
+                    s.agregarProducto(nom, precio, cantidad);
+                }
+                if(menuIn=="2"){
+                    System.out.println("Ingrese el id del producto que quiere aumentar.");
+                    String idS = in.next();
+                    int id = Integer.parseInt(idS);
+                    System.out.println("Ingrese la cantidad de productos que quiere aumentar.");
+                    String cant = in.next();
+                    int cantidad = Integer.parseInt(cant);
+                    s.modificarInventario(id, cantidad);
+                }
+
+
+            }
+            if(menuIn=="1"){
+                s.checarProductos();
+            }
+            if(menuIn=="2"){
+                s.abrirPedido();
+                do{
+                    System.out.println("MENU PEDIDO.");
+                    System.out.println("1 - Mostrar productos\n"
+                            + "2 - Agregar producto a pedido\n"
+                            + "3 - Mostrar pedido\n"
+                            + "4 - Borrar pedido\n"
+                            + "0 - Salir");
+                    menuIn = in.next();
+                    if(menuIn=="1"){
+                        s.checarProductos();
+                    }
+                    if(menuIn=="2"){
+                        System.out.println("Ingrese el id del producto que quiere agregar.");
+                        String idS = in.next();
+                        int id = Integer.parseInt(idS);
+                        System.out.println("Ingrese la cantidad de productos que quiere agregar.");
+                        String cant = in.next();
+                        int cantidad = Integer.parseInt(cant);
+                        s.agregarAPedido(id, cantidad);
+                    }
+                    if(menuIn=="3"){
+                        s.mostrarPedido();
+                    }
+                    if(menuIn=="4"){
+                        s.borrarPedido();
+                    }
+                }while(s.getEstado()>1);
+            }
+            if(menuIn=="3"){
+                s.borrarPedido();
+            }
+
+
+        }
+
         s.Guardar();
+        in.close();
     }
     
 }
