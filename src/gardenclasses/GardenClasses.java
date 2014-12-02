@@ -46,7 +46,8 @@ public class GardenClasses {
             System.out.print("Mail: ");
             String mail = in.next();
             System.out.print("Telefono: ");
-            String telefono = in.next();
+            String tel = in.next();
+            int telefono = Integer.parseInt(tel);
 
             s.agregarUsuario(nombre, apellido, direccion, usuario, password, mail, telefono);
             System.out.println("¡Gracias " + nombre +"! Hemos terminado de registrarte");
@@ -70,8 +71,24 @@ public class GardenClasses {
                 }while(!login);
             }
         }
-        
+        //mostrar productos
+        //crear pedido
+        //
+
+        /*0 salir, login, registro
+        1 (si es admin: agregar producto, aumentarInventario,) abrirPedido, borrarPedido
+        2. mostrar pedido, agregar a pedido*/
+        while(s.getEstado()>=0){
+            System.out.println("¡Login exitoso! Bienvenido al portal de Garden, teclea el numero
+                correspondiente a la accion que deseas hacer.");
+            System.out.println("1 - Mostrar productos\n
+                                2 - ");
+            String menuIn = in.next();
+        }
+
         s.Guardar();
+        in.close();
+        System.exit();
     }
     
 }
