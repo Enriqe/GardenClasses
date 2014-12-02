@@ -106,7 +106,18 @@ public class Sistema {
     }
     
     public void aumentarInventario(int id, int cant){
-        
+
+        boolean aux = false;
+        for (int x = 0; x < productosDisponibles.size(); x++) {
+            if (id == productosDisponibles.get(x).getId()) {
+                productosDisponibles.get(x).addCantidadDisponible(cant);
+                aux = true;
+                break;
+            }
+        }
+        if (!aux) {
+            JOptionPane.showMessageDialog(null, "El producto es incorrecto. No existe el id.");
+        }
     }
 
     public void crearPedido(int ancho , int largo, int d , int m , int a) {
@@ -166,7 +177,19 @@ public class Sistema {
 
     public void agregarUsuario(String nom, String apel, String direc, String usuar,
                             String pass, String correo, int tel) {
-                
+
+        boolean clienteExistente = false;
+        for (int x = 0; x < clientes.size(); x++) {
+            if (clientes.get(x).getUsuario() == usuar) {
+                clienteExistente = true;
+                JOptionPane.showMessageDialog(null, "Ya tienes un usuario.");
+                break;
+            }
+            if (!clienteExistente) {
+                clientes.push(new Cliente( nom, apel, direc, usuar,
+                            pass, correo, clientes.size() + 1, tel));
+            }
+        }
     }
 
     public int getEstado() {
