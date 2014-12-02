@@ -47,6 +47,36 @@ public class Sistema {
     "User does not exist");
         return false;
     }
+    public Boolean abrirPedido (){
+        for (Pedido p:pedidos){
+            if(p.getClienteId()==(this.cActual.getClienteId())){
+                estado=2;
+                pActual = p;
+                return true;
+            }
+        }
+        JOptionPane.showMessageDialog(null,
+    "El usuario no tiene jardines ni pedidos creados");
+        return false;
+    }
+    public void agregarProducto(){
+        
+    }
+    public void agregarAPedido(){
+        
+    }
+    public void crearPedido(){
+        //tinee que validar que no haya pedidos creados
+    }
+    public void mostrarPedido(){
+        
+    }
+    public void mostrarProductos(){
+        
+    }
+    public void salir(){
+        
+    }
     
     public int getEstado(){
         return this.estado;
