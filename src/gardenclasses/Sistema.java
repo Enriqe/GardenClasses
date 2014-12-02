@@ -168,7 +168,7 @@ public class Sistema {
         estado = 1;
     }
 
-    public void borrarPedido() {
+    public void cancelarPedido() {
         for (int x = 0; x < pedidos.size(); x++) {
             Pedido aux = (Pedido) pedidos.get(x);
             if (cActual.getClienteId() == aux.getClienteId()) {

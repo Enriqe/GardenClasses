@@ -145,12 +145,12 @@ public class GardenClasses {
                         s.mostrarPedido();
                     }
                     if(menuIn=="4"){
-                        s.borrarPedido();
+                        s.cancelarPedido();
                     }
                 }while(s.getEstado()>1);
             }
             if(menuIn=="3"){
-                s.borrarPedido();
+                s.cancelarPedido();
             }
 
 
