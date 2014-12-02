@@ -63,13 +63,61 @@ public class Sistema {
                 "El usuario no tiene jardines ni pedidos creados");
         return false;
     }
-
-    public void agregarProducto() {
-
+    public void agregarProducto(String n , double p, int c){
+        if (cActual.getClienteId()==1){
+            int tam = productosDisponibles.size();
+            tam +=1;
+            productosDisponibles.push(new Producto(tam,n,p,0,0,c));
+        }
+        else{
+            JOptionPane.showMessageDialog(null,
+            "No eres administrador");
+        }
     }
+    public void agregarAPedido(int id , int cant){
+        if(id>productosDisponibles.size()){
+            JOptionPane.showMessageDialog(null,
+    "No existe ese producto");
+            return;
+        }
+        if (cant>productosDisponibles.get(id-1).getCantidadDisponible()){
+            JOptionPane.showMessageDialog(null,
+    "No hay cantidad suficiente disponible para su pedido");
+        }
+        else{
+            Boolean noEncontro = true;
+            for (Producto p: pActual.productos){
+                if (p.getId()==id){
+                    p.addCantidadDisponible(cant);
+                    noEncontro = false;
+                }
+            }
+            if(noEncontro){
+                Producto p = productosDisponibles.get(id-1);
+                p.setCant(cant);
+                pActual.productos.push(p);
+            }
+            for (Producto q : productosDisponibles){
+                if (q.getId()==id){
+                    q.addCantidadDisponible(-cant);
+                }
+            }
+        }
+    }
+    
+    public void aumentarInventario(int id, int cant){
 
-    public void agregarAPedido() {
-
+        boolean aux = false;
+        for (int x = 0; x < productosDisponibles.size(); x++) {
+            if (id == productosDisponibles.get(x).getId()) {
+                productosDisponibles.get(x).addCantidadDisponible(cant);
+                aux = true;
+                break;
+            }
+        }
+        if (!aux) {
+            JOptionPane.showMessageDialog(null, "El producto es incorrecto. No existe el id.");
+        }
     }
 
     public void crearPedido(int ancho , int largo, int d , int m , int a) {
@@ -89,22 +137,31 @@ public class Sistema {
     }
 
     public void mostrarPedido() {
-
+            System.out.println("ID Pedido: "+pActual.getPedidoId());
+            System.out.println("Ancho: "+pActual.getAnchoJardin()+" Largo: "+pActual.getLargoJardin());
+            System.out.println("Lista de Productos:");
+            for (Producto p: pActual.productos){
+            Producto aux = p;
+            System.out.println(aux.getId() + " " + aux.getNombre() + " $" + aux.getPrecio() + " " + aux.getCantidadDisponible());
+            }
+            double iva = pActual.calcularTotal()*.16;
+            System.out.println("SubTotal: "+pActual.calcularTotal());
+            System.out.println("IVA: "+iva);
+            System.out.println("Total: "+pActual.calcularTotal()+iva);
     }
-
+    
     public void mostrarProductos() {
         for (int x = 0; x < productosDisponibles.size(); x++) {
             Producto aux = (Producto) productosDisponibles.get(x);
-            System.out.println(aux.getId() + " " + aux.getNombre() + " " + aux.getPrecio() + " " + aux.getCantidadDisponible());
+            System.out.println(aux.getId() + " " + aux.getNombre() + " $" + aux.getPrecio() + " " + aux.getCantidadDisponible());
         }
     }
 
     public void salir() {
         estado = -1;
     }
-
-    public void logout() {
-
+    public void logout(){
+        estado = 0;
     }
 
     public void borrarPedido() {
@@ -118,13 +175,27 @@ public class Sistema {
         estado = 1;
     }
 
-    public void agregarUsuario() {
+    public void agregarUsuario(String nom, String apel, String direc, String usuar,
+                            String pass, String correo, int tel) {
 
+        boolean clienteExistente = false;
+        for (int x = 0; x < clientes.size(); x++) {
+            if (clientes.get(x).getUsuario() == usuar) {
+                clienteExistente = true;
+                JOptionPane.showMessageDialog(null, "Ya tienes un usuario.");
+                break;
+            }
+            if (!clienteExistente) {
+                clientes.push(new Cliente( nom, apel, direc, usuar,
+                            pass, correo, clientes.size() + 1, tel));
+            }
+        }
     }
 
     public int getEstado() {
         return this.estado;
     }
+
 
     public void Cargar() {
         String texto, aux;
