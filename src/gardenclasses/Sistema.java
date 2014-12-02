@@ -18,45 +18,49 @@ import javax.swing.JOptionPane;
  * @author frankcanseco
  */
 public class Sistema {
+
     Cliente cActual;
     Pedido pActual;
     int estado;
     LinkedList<Cliente> clientes;
     LinkedList<Producto> productosDisponibles;
     LinkedList<Pedido> pedidos;
-    Sistema(){
+
+    Sistema() {
         clientes = new LinkedList();
         productosDisponibles = new LinkedList();
         pedidos = new LinkedList();
         estado = 0;
     }
-    public Boolean login(String Usuario,String Password){
-        for (Cliente c:clientes){
-            if(c.getUsuario().equals(Usuario)){
-                if (c.getPassword().equals(Password)){
+
+    public Boolean login(String Usuario, String Password) {
+        for (Cliente c : clientes) {
+            if (c.getUsuario().equals(Usuario)) {
+                if (c.getPassword().equals(Password)) {
                     estado = 1;
-                    cActual=c;
+                    cActual = c;
                     return true;
                 }
                 JOptionPane.showMessageDialog(null,
-    "Wrong Password");
+                        "Wrong Password");
                 return false;
             }
         }
         JOptionPane.showMessageDialog(null,
-    "User does not exist");
+                "User does not exist");
         return false;
     }
-    public Boolean abrirPedido (){
-        for (Pedido p:pedidos){
-            if(p.getClienteId()==(this.cActual.getClienteId())){
-                estado=2;
+
+    public Boolean abrirPedido() {
+        for (Pedido p : pedidos) {
+            if (p.getClienteId() == (this.cActual.getClienteId())) {
+                estado = 2;
                 pActual = p;
                 return true;
             }
         }
         JOptionPane.showMessageDialog(null,
-    "El usuario no tiene jardines ni pedidos creados");
+                "El usuario no tiene jardines ni pedidos creados");
         return false;
     }
     public void agregarProducto(String n , double p, int x , int y , int c){
@@ -99,182 +103,190 @@ public class Sistema {
             }
         }
     }
-    public void crearPedido(){
+
+    public void crearPedido(int ancho , int largo, int d , int m , int a) {
         //tinee que validar que no haya pedidos creados
+        boolean pedidoExistente = false;
+        for (int x = 0; x < pedidos.size(); x++) {
+            Pedido aux = (Pedido) pedidos.get(x);
+            if (cActual.getClienteId() == aux.getClienteId()) {
+                pedidoExistente = true;
+                System.out.println("Ya tienes un pedido existente");
+                break;
+            }
+        }
+        if (!pedidoExistente) {
+            pedidos.push(new Pedido(pedidos.getLast().getPedidoId()+1, cActual.getClienteId(), ancho , largo, d , m , a));
+        }
     }
-    public void mostrarPedido(){
-        
+
+    public void mostrarPedido() {
+
     }
-    public void mostrarProductos(){
-        
+
+    public void mostrarProductos() {
+        for (int x = 0; x < productosDisponibles.size(); x++) {
+            Producto aux = (Producto) productosDisponibles.get(x);
+            System.out.println(aux.getId() + " " + aux.getNombre() + " " + aux.getPrecio() + " " + aux.getCantidadDisponible());
+        }
     }
-    public void salir(){
+
+    public void salir() {
         estado = -1;
     }
     public void logout(){
         estado = 0;
     }
-    public void borrarPedido(){
-        
+
+    public void borrarPedido() {
+        for (int x = 0; x < pedidos.size(); x++) {
+            Pedido aux = (Pedido) pedidos.get(x);
+            if (cActual.getClienteId() == aux.getClienteId()) {
+                pedidos.remove(x);
+                break;
+            }
+        }
+        estado = 1;
     }
-    public void agregarUsuario(){
-        
+
+    public void agregarUsuario() {
+
     }
-    public int getEstado(){
+
+    public int getEstado() {
         return this.estado;
     }
-    public void Cargar(){
-        String texto,aux;
-        try
-            {
+
+
+    public void Cargar() {
+        String texto, aux;
+        try {
             //Creamos un archivo FileReader que obtiene lo que tenga el archivo
-            FileReader lector=new FileReader("Clientes.txt");
+            FileReader lector = new FileReader("Clientes.txt");
 
             //El contenido de lector se guarda en un BufferedReader
-            BufferedReader contenido=new BufferedReader(lector);
+            BufferedReader contenido = new BufferedReader(lector);
 
             //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
-            while((texto=contenido.readLine())!=null)
-            {
+            while ((texto = contenido.readLine()) != null) {
                 aux = "";
-                while((texto=contenido.readLine())!=null && !texto.equals("&")){
+                while ((texto = contenido.readLine()) != null && !texto.equals("&")) {
                     aux = aux.concat(texto);
                 }
                 clientes.push(new Cliente(aux));
             }
-            }
-
-            //Si se causa un error al leer cae aqui
-            catch(Exception e)
-            {
+        } //Si se causa un error al leer cae aqui
+        catch (Exception e) {
             System.out.println("Error al leer");
-            }
-        try
-            {
+        }
+        try {
             //Creamos un archivo FileReader que obtiene lo que tenga el archivo
-            FileReader lector=new FileReader("Productos.txt");
+            FileReader lector = new FileReader("Productos.txt");
 
             //El contenido de lector se guarda en un BufferedReader
-            BufferedReader contenido=new BufferedReader(lector);
+            BufferedReader contenido = new BufferedReader(lector);
 
             //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
-            while((texto=contenido.readLine())!=null)
-            {
+            while ((texto = contenido.readLine()) != null) {
                 aux = "";
-                while((texto=contenido.readLine())!=null && !texto.equals("&")){
+                while ((texto = contenido.readLine()) != null && !texto.equals("&")) {
                     aux = aux.concat(texto);
                 }
                 productosDisponibles.push(new Producto(aux));
             }
-            }
-
-            //Si se causa un error al leer cae aqui
-            catch(Exception e)
-            {
+        } //Si se causa un error al leer cae aqui
+        catch (Exception e) {
             System.out.println("Error al leer");
-            }
+        }
         Pedido p;
         String sp;
         int prod;
-        try
-            {
+        try {
             //Creamos un archivo FileReader que obtiene lo que tenga el archivo
-            FileReader lector=new FileReader("Pedidos.txt");
+            FileReader lector = new FileReader("Pedidos.txt");
 
             //El contenido de lector se guarda en un BufferedReader
-            BufferedReader contenido=new BufferedReader(lector);
+            BufferedReader contenido = new BufferedReader(lector);
 
             //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
-            while((texto=contenido.readLine())!=null)
-            {
+            while ((texto = contenido.readLine()) != null) {
                 aux = "";
-                while((texto=contenido.readLine())!=null && !texto.equals("&")){
+                while ((texto = contenido.readLine()) != null && !texto.equals("&")) {
                     aux = aux.concat(texto);
                 }
                 p = new Pedido(aux);
                 sp = p.getProductosPendientes();
-                while(sp.length()>1){
-                    sp=sp.substring(1);
+                while (sp.length() > 1) {
+                    sp = sp.substring(1);
                     prod = Integer.parseInt(sp.substring(0, sp.indexOf("P")));
-                    sp=(sp.substring(sp.indexOf("P")));
-                    p.agregarProducto(productosDisponibles.get(prod-1));
+                    sp = (sp.substring(sp.indexOf("P")));
+                    p.agregarProducto(productosDisponibles.get(prod - 1));
                 }
                 pedidos.push(p);
             }
-            }
-
-            //Si se causa un error al leer cae aqui
-            catch(Exception e)
-            {
+        } //Si se causa un error al leer cae aqui
+        catch (Exception e) {
             System.out.println("Error al leer");
-            }
+        }
     }
-    public void Guardar(){
-        String texto="";
-        for(Cliente c: clientes){
+
+    public void Guardar() {
+        String texto = "";
+        for (Cliente c : clientes) {
             texto = texto.concat("&\n");
             texto = texto.concat(c.generaStringCliente());
             texto = texto.concat("\n");
         }
-        try
-        {
-        //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
-        File archivo=new File("Clientes.txt");
-        //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
-        BufferedWriter escribir = new BufferedWriter(new FileWriter(archivo));
-        //Escribimos en el archivo con el metodo write 
-        escribir.write(texto);
-        //Cerramos la conexion
-        escribir.close();
+        try {
+            //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
+            File archivo = new File("Clientes.txt");
+            //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+            BufferedWriter escribir = new BufferedWriter(new FileWriter(archivo));
+            //Escribimos en el archivo con el metodo write 
+            escribir.write(texto);
+            //Cerramos la conexion
+            escribir.close();
+        } //Si existe un problema al escribir cae aqui
+        catch (Exception e) {
+            System.out.println("Error al escribir");
         }
-        //Si existe un problema al escribir cae aqui
-        catch(Exception e)
-        {
-        System.out.println("Error al escribir");
-        }
-        texto="";
-        for(Pedido p: pedidos){
+        texto = "";
+        for (Pedido p : pedidos) {
             texto = texto.concat("&\n");
             texto = texto.concat(p.infoPedido());
             texto = texto.concat("\n");
         }
-        try
-        {
-        //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
-        File archivo=new File("Pedidos.txt");
-        //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
-        BufferedWriter escribir = new BufferedWriter(new FileWriter(archivo));
-        //Escribimos en el archivo con el metodo write 
-        escribir.write(texto);
-        //Cerramos la conexion
-        escribir.close();
+        try {
+            //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
+            File archivo = new File("Pedidos.txt");
+            //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+            BufferedWriter escribir = new BufferedWriter(new FileWriter(archivo));
+            //Escribimos en el archivo con el metodo write 
+            escribir.write(texto);
+            //Cerramos la conexion
+            escribir.close();
+        } //Si existe un problema al escribir cae aqui
+        catch (Exception e) {
+            System.out.println("Error al escribir");
         }
-        //Si existe un problema al escribir cae aqui
-        catch(Exception e)
-        {
-        System.out.println("Error al escribir");
-        }
-        texto="";
-        for(Producto p: productosDisponibles){
+        texto = "";
+        for (Producto p : productosDisponibles) {
             texto = texto.concat("&\n");
             texto = texto.concat(p.generaInfo());
             texto = texto.concat("\n");
         }
-        try
-        {
-        //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
-        File archivo=new File("Productos.txt");
-        //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
-        BufferedWriter escribir = new BufferedWriter(new FileWriter(archivo));
-        //Escribimos en el archivo con el metodo write 
-        escribir.write(texto);
-        //Cerramos la conexion
-        escribir.close();
-        }
-        //Si existe un problema al escribir cae aqui
-        catch(Exception e)
-        {
-        System.out.println("Error al escribir");
+        try {
+            //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
+            File archivo = new File("Productos.txt");
+            //Crear objeto FileWriter que sera el que nos ayude a escribir sobre archivo
+            BufferedWriter escribir = new BufferedWriter(new FileWriter(archivo));
+            //Escribimos en el archivo con el metodo write 
+            escribir.write(texto);
+            //Cerramos la conexion
+            escribir.close();
+        } //Si existe un problema al escribir cae aqui
+        catch (Exception e) {
+            System.out.println("Error al escribir");
         }
     }
 }
