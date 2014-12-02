@@ -72,7 +72,7 @@ public class Sistema {
 
     }
 
-    public void crearPedido() {
+    public void crearPedido(int ancho , int largo, int d , int m , int a) {
         //tinee que validar que no haya pedidos creados
         boolean pedidoExistente = false;
         for (int x = 0; x < pedidos.size(); x++) {
@@ -82,6 +82,9 @@ public class Sistema {
                 System.out.println("Ya tienes un pedido existente");
                 break;
             }
+        }
+        if (!pedidoExistente) {
+            pedidos.push(new Pedido(pedidos.getLast().getPedidoId()+1, cActual.getClienteId(), ancho , largo, d , m , a));
         }
     }
 
